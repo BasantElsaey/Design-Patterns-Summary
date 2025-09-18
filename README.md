@@ -32,5 +32,7 @@
 
 3. Run and experiment with the code examples to deepen your understanding.
 
+---
+
 ### Why Use This Guide:
 Whether you're building scalable Node.js applications or preparing for technical interviews, this guide provides a hands-on approach to mastering design patterns. Contributions, feedback, and suggestions are welcome—feel free to open an issue or submit a pull request!

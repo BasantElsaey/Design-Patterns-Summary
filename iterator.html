@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iterator Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Iterator Pattern</h1>
+    <div class="section" id="iterator">
+      <h2 onclick="toggleContent(this)">Iterator</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Iterator pattern provides a way to access elements of a collection sequentially without exposing its underlying representation. It supports protocols like iterator and iterable for consistent traversal.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Simplifies navigation through complex data structures.</li>
+          <li>Supports safe and consistent iteration without exposing internal details.</li>
+          <li>Compatible with JavaScript features like for...of loops.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Used for iterating over user lists or processing data streams, such as in Readable streams or custom collections.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>ES6 iterators are native; use Symbol.iterator for custom iterables. In Node.js, they're key for async iterators in streams.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Implement the iterator protocol with next() method returning { value, done }.</li>
+            <li>Use generators for lazy iteration to save memory.</li>
+            <li>Handle errors in iterators to prevent breaking the loop.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>Iterators are foundational for async generators in Node.js, used in libraries like RxJS for observable sequences.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="iterator">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('iterator', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('iterator', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+interface Iterator<T> { next(): T | null; hasNext(): boolean; }
+
+class UserCollection {
+  private users: string[];
+  constructor(users: string[]) { this.users = users; }
+  createIterator(): Iterator<string> {
+    let index = 0;
+    return {
+      next: () => (index < this.users.length ? this.users[index++] : null),
+      hasNext: () => index < this.users.length
+    };
+  }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function UserCollection(users) {
+  this.users = users;
+}
+UserCollection.prototype.createIterator = function() {
+  let index = 0;
+  return {
+    next: () => (index < this.users.length ? this.users[index++] : null),
+    hasNext: () => index < this.users.length
+  };
+};
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('iterator-output', runIterator)">Run Code</button>
+        <div class="output" id="iterator-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

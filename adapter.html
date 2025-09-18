@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adapter Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Adapter Pattern</h1>
+    <div class="section" id="adapter">
+      <h2 onclick="toggleContent(this)">Adapter</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Adapter pattern allows objects with incompatible interfaces to collaborate by wrapping an old interface with a new one. It's used to make legacy code work with modern systems.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Enables integration of libraries or systems with incompatible interfaces.</li>
+          <li>Reduces the need to rewrite legacy code, saving time and effort.</li>
+          <li>Promotes code reuse by adapting existing components.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Used to integrate legacy libraries with modern systems, like using LevelUP with a filesystem API or adapting third-party APIs.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>Adapters are two-way; consider bidirectional adapters for full compatibility. In Node.js, they're common in migration tools.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Implement adapters as classes that implement the target interface.</li>
+            <li>Use composition to delegate calls to the adaptee.</li>
+            <li>Test adapters thoroughly to ensure all methods are mapped correctly.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>The Adapter pattern is essential for microservices in Node.js, often used in gRPC adapters for REST APIs.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="adapter">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('adapter', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('adapter', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+interface NewUser { fullName: string; }
+interface OldUser { firstName: string; lastName: string; }
+
+class OldUserService {
+  getUser(): OldUser { return { firstName: "Ali", lastName: "Ahmed" }; }
+}
+
+class UserAdapter implements NewUser {
+  private oldUser: OldUser;
+  constructor(oldUser: OldUser) { this.oldUser = oldUser; }
+  get fullName(): string { return `${this.oldUser.firstName} ${this.oldUser.lastName}`; }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function OldUserService() {
+  this.getUser = () => ({ firstName: "Ali", lastName: "Ahmed" });
+}
+
+function UserAdapter(oldUser) {
+  this.get fullName() { return oldUser.firstName + " " + oldUser.lastName; }
+}
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('adapter-output', runAdapter)">Run Code</button>
+        <div class="output" id="adapter-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

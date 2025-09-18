@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Template Pattern</h1>
+    <div class="section" id="template">
+      <h2 onclick="toggleContent(this)">Template</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Template pattern defines the skeleton of an algorithm in a method, deferring some steps to subclasses. It allows subclasses to redefine certain steps of an algorithm without changing the algorithm's structure.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Ensures consistency in algorithm structure while allowing customization.</li>
+          <li>Allows customization of steps without altering the overall structure.</li>
+          <li>Facilitates code reuse by defining common steps in the base class.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Used for configuration management or customizable data processing, such as template methods for file processing pipelines.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>Template is behavioral but creational in nature. In Node.js, it's used in build tools like Gulp for task pipelines.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Mark customizable methods as abstract in the base class.</li>
+            <li>Use protected access for template methods to allow subclass access.</li>
+            <li>Avoid deep inheritance hierarchies; prefer composition where possible.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>Template is a classic pattern in framework design, seen in Node.js testing libraries like Mocha for test runners.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="template">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('template', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('template', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+abstract class DataProcessor {
+  process(): string {
+    return `${this.step1()}\n${this.step2()}`;
+  }
+  protected abstract step1(): string;
+  protected abstract step2(): string;
+}
+
+class CSVProcessor extends DataProcessor {
+  protected step1(): string { return "Reading CSV"; }
+  protected step2(): string { return "Processing CSV data"; }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function DataProcessor() {}
+DataProcessor.prototype.process = function() {
+  return this.step1() + "\n" + this.step2();
+};
+
+function CSVProcessor() {}
+CSVProcessor.prototype = Object.create(DataProcessor.prototype);
+CSVProcessor.prototype.step1 = function() { return "Reading CSV"; };
+CSVProcessor.prototype.step2 = function() { return "Processing CSV data"; };
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('template-output', runTemplate)">Run Code</button>
+        <div class="output" id="template-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

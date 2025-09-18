@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dependency Injection Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Dependency Injection Pattern</h1>
+    <div class="section" id="dependency-injection">
+      <h2 onclick="toggleContent(this)">Dependency Injection</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>Dependency Injection is a technique where one object supplies the dependencies of another object, rather than the dependent object creating them itself. It promotes loose coupling and testability.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Eases unit testing by injecting mock dependencies.</li>
+          <li>Reduces coupling between objects, making the code more modular.</li>
+          <li>Allows easy swapping of dependencies at runtime or via configuration.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Used in frameworks like NestJS to manage services or modules, or in Express apps for injecting repositories into controllers.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>DI can be implemented via constructor, setter, or interface injection. In Node.js, libraries like InversifyJS provide IoC containers for advanced DI.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Use interfaces for dependencies to ensure abstraction.</li>
+            <li>Avoid service locator anti-pattern; prefer explicit injection.</li>
+            <li>In TypeScript, use generics for type-safe DI containers.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>DI is a core principle in SOLID, and in Node.js, it's essential for scalable applications, often combined with IoC containers like Awilix.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="dependency-injection">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('dependency-injection', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('dependency-injection', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+interface Logger { log(message: string): string; }
+class ConsoleLogger implements Logger { log(message: string): string { return `Console: ${message}`; } }
+
+class UserService {
+  constructor(private logger: Logger) {}
+  createUser(name: string): string { return this.logger.log(`User ${name} created`); }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function UserService(logger) {
+  this.logger = logger;
+}
+UserService.prototype.createUser = function(name) {
+  return this.logger.log("User " + name + " created");
+};
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('dependency-injection-output', runDependencyInjection)">Run Code</button>
+        <div class="output" id="dependency-injection-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

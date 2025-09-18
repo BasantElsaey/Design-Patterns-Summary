@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revealing Constructor Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Revealing Constructor Pattern</h1>
+    <div class="section" id="revealing-constructor">
+      <h2 onclick="toggleContent(this)">Revealing Constructor</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Revealing Constructor pattern is a variation of the constructor pattern that reveals the object's API during construction, allowing for configuration before the object is fully instantiated. It's useful for creating immutable objects with customizable interfaces.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Allows customization during creation without modifying the object later.</li>
+          <li>Ideal for immutable objects, ensuring thread-safety in concurrent environments.</li>
+          <li>Provides fine-grained control over the object's public API.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>In Node.js, it's used for creating immutable buffers or server configurations, such as building read-only configuration objects for microservices.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>This pattern is less common in modern JavaScript but shines in scenarios requiring immutability, like in Redux state management or configuration loaders.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Use Object.freeze() to enforce immutability after construction.</li>
+            <li>Pass a callback to the constructor for custom initialization.</li>
+            <li>Avoid overusing it; prefer Builder for very complex constructions.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>Popularized in JavaScript modules, this pattern is seen in libraries like Lodash for creating utility functions with custom configurations.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="revealing-constructor">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('revealing-constructor', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('revealing-constructor', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+class ImmutableBuffer {
+  private buffer: Buffer;
+  constructor(size: number, initializer: (buffer: Buffer) => void) {
+    this.buffer = Buffer.alloc(size);
+    initializer(this.buffer);
+    Object.freeze(this.buffer);
+  }
+  read(): Buffer { return this.buffer; }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function ImmutableBuffer(size, initializer) {
+  const buffer = Buffer.alloc(size);
+  initializer(buffer);
+  Object.freeze(buffer);
+  return {
+    read: () => buffer
+  };
+}
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('revealing-constructor-output', runRevealingConstructor)">Run Code</button>
+        <div class="output" id="revealing-constructor-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

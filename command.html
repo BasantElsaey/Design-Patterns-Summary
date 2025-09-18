@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Command Pattern</h1>
+    <div class="section" id="command">
+      <h2 onclick="toggleContent(this)">Command</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Command pattern turns a request into a stand-alone object containing all information about the request. This allows for parameterization of clients with different requests and supports undoable operations.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Allows undoing or redoing operations by storing commands in a history.</li>
+          <li>Reduces coupling between sender and receiver of a request.</li>
+          <li>Supports queuing or logging commands for later execution.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Used in task or command management systems, like remote control systems or undo/redo in text editors built with Node.js.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>Command is the basis for the Task pattern in asynchronous programming. In Node.js, it's used in CLI tools for command queuing.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Implement undo by storing reverse operations or state snapshots.</li>
+            <li>Use macros to compose multiple commands into one.</li>
+            <li>Combine with Observer for notifying about command execution.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>Command is foundational for event sourcing in Node.js, seen in libraries like EventStore for audit trails.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="command">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('command', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('command', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+interface Command { execute(): string; }
+
+class Light {
+  turnOn(): string { return "Light is ON"; }
+}
+
+class TurnOnCommand implements Command {
+  private light: Light;
+  constructor(light: Light) { this.light = light; }
+  execute(): string { return this.light.turnOn(); }
+}
+
+class RemoteControl {
+  submit(command: Command): string { return command.execute(); }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function Light() {
+  this.turnOn = () => "Light is ON";
+}
+
+function TurnOnCommand(light) {
+  this.execute = () => light.turnOn();
+}
+
+function RemoteControl() {
+  this.submit = (command) => command.execute();
+}
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('command-output', runCommand)">Run Code</button>
+        <div class="output" id="command-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

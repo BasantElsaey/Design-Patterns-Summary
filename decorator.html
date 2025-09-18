@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decorator Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Decorator Pattern</h1>
+    <div class="section" id="decorator">
+      <h2 onclick="toggleContent(this)">Decorator</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Decorator pattern allows adding new functionality to an existing object dynamically by wrapping it with one or more decorator objects. It's useful for extending behavior without subclassing.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Allows flexible extension of object functionality at runtime.</li>
+          <li>Maintains the Open/Closed Principle by allowing extension without modification.</li>
+          <li>Reduces the need for multiple subclasses, avoiding explosion of classes.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Common in NestJS for adding logging or authentication to functions, or in Express for decorating middleware functions.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>Decorators in TypeScript are experimental but powerful for metadata. In Node.js, they're used in AOP libraries like Aspect.js.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Ensure decorators preserve the original method's return type.</li>
+            <li>Use composition over inheritance for multiple decorators.</li>
+            <li>Enable experimentalDecorators in tsconfig.json for TS support.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>The Decorator pattern is the foundation for TypeScript decorators, used in frameworks like Angular for component decoration.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="decorator">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('decorator', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('decorator', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+function Logger(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+  descriptor.value = function (...args: any[]) {
+    return `Calling ${propertyKey} with ${args.join(", ")}. Result: ${originalMethod.apply(this, args)}`;
+  };
+}
+
+class Calculator {
+  @Logger
+  add(a: number, b: number): number { return a + b; }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function Logger(originalMethod) {
+  return function (...args) {
+    return `Calling with ${args.join(", ")}. Result: ${originalMethod.apply(this, args)}`;
+  };
+}
+
+class Calculator {
+  add(a, b) { return a + b; }
+}
+Calculator.prototype.add = Logger(Calculator.prototype.add);
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('decorator-output', runDecorator)">Run Code</button>
+        <div class="output" id="decorator-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

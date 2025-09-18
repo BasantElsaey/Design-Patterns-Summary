@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factory Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Factory Pattern</h1>
+    <div class="section" id="factory">
+      <h2 onclick="toggleContent(this)">Factory</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Factory pattern is a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created. It encapsulates object creation logic, making the code more flexible and extensible.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Separates object creation from usage, easing maintenance and testing.</li>
+          <li>Allows extension with new types without modifying existing code (Open/Closed Principle).</li>
+          <li>Provides flexibility in choosing objects based on context or configuration.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>In Node.js, the Factory pattern is commonly used to create controllers or services based on request types, such as different API controllers for user or admin routes. It's also useful for creating database connections or middleware based on environment variables.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>Factory is particularly useful in modular applications where object types need to be determined at runtime. In Node.js, it pairs well with dependency injection for injecting factories into services.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Use switch statements or maps for simple factories; for complex logic, consider the Abstract Factory variant.</li>
+            <li>Ensure factories return interfaces, not concrete classes, to maintain loose coupling.</li>
+            <li>Test factories with different inputs to ensure they handle edge cases gracefully.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>The Factory pattern is one of the most used creational patterns in JavaScript/Node.js ecosystems, often seen in libraries like Express.js for route handlers or in ORM tools like Sequelize for model factories.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="factory">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('factory', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('factory', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+interface Vehicle {
+  drive(): string;
+}
+
+class Car implements Vehicle {
+  drive(): string { return "Driving a car"; }
+}
+
+class Truck implements Vehicle {
+  drive(): string { return "Driving a truck"; }
+}
+
+class VehicleFactory {
+  static createVehicle(type: string): Vehicle {
+    switch (type) {
+      case "car": return new Car();
+      case "truck": return new Truck();
+      default: throw new Error("Unknown vehicle type");
+    }
+  }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function VehicleFactory(type) {
+  if (type === "car") {
+    return { drive: () => "Driving a car" };
+  } else if (type === "truck") {
+    return { drive: () => "Driving a truck" };
+  } else {
+    throw new Error("Unknown vehicle type");
+  }
+}
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('factory-output', runFactory)">Run Code</button>
+        <div class="output" id="factory-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

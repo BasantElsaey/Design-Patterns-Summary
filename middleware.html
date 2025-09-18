@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Middleware Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Middleware Pattern</h1>
+    <div class="section" id="middleware">
+      <h2 onclick="toggleContent(this)">Middleware</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Middleware pattern allows processing requests in a chain of steps, where each step can modify or halt the request. It's a pipeline for handling cross-cutting concerns.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Provides a flexible structure for request processing and extension.</li>
+          <li>Allows easy addition of features like logging or authentication without core changes.</li>
+          <li>Reduces coupling between application components by modularizing concerns.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Common in Express.js for managing middlewares like authentication or error handling, or in custom ZeroMQ message processing.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>Middleware is essentially Chain of Responsibility applied to request pipelines. In Node.js, it's the backbone of web frameworks.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Pass a 'next' callback to allow chaining.</li>
+            <li>Handle errors in middleware to prevent breaking the chain.</li>
+            <li>Use async middleware for non-blocking operations in Node.js.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>Middleware is a key pattern in web development, extended in GraphQL with Apollo Server for resolvers.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="middleware">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('middleware', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('middleware', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+interface Middleware { process(data: string): string; }
+
+class LoggerMiddleware implements Middleware {
+  process(data: string): string { return `Logged: ${data}`; }
+}
+
+class AuthMiddleware implements Middleware {
+  process(data: string): string { return `Authenticated: ${data}`; }
+}
+
+class MiddlewareManager {
+  private middlewares: Middleware[] = [];
+  add(middleware: Middleware): void { this.middlewares.push(middleware); }
+  execute(data: string): string {
+    let result = data;
+    for (const middleware of this.middlewares) {
+      result = middleware.process(result);
+    }
+    return result;
+  }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function LoggerMiddleware() {
+  this.process = (data) => `Logged: ${data}`;
+}
+function AuthMiddleware() {
+  this.process = (data) => `Authenticated: ${data}`;
+}
+
+function MiddlewareManager() {
+  this.middlewares = [];
+  this.add = (middleware) => this.middlewares.push(middleware);
+  this.execute = (data) => {
+    let result = data;
+    for (const middleware of this.middlewares) {
+      result = middleware.process(result);
+    }
+    return result;
+  };
+}
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('middleware-output', runMiddleware)">Run Code</button>
+        <div class="output" id="middleware-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

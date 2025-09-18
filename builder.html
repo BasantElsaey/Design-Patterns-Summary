@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Builder Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Builder Pattern</h1>
+    <div class="section" id="builder">
+      <h2 onclick="toggleContent(this)">Builder</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Builder pattern is a creational design pattern that allows constructing complex objects step by step. It separates the construction of a complex object from its representation, so the same construction process can create different representations.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Allows organized and readable construction of complex objects.</li>
+          <li>Reduces configuration errors by providing a fluent interface.</li>
+          <li>Provides flexibility in customizing objects without constructors with many parameters.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>In Node.js, the Builder pattern is used for building HTTP requests with multiple parameters or complex data models, such as constructing query objects for databases or API payloads in libraries like Axios.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>Builder is ideal when an object has many optional parameters. In Node.js, it's often used with fluent APIs for configuration objects, like in the 'request' library or custom CLI tools.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Return the builder instance from each method to enable method chaining.</li>
+            <li>Make the final object immutable by freezing it after construction.</li>
+            <li>Consider using it with interfaces to ensure type safety in TypeScript.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>The Builder pattern is frequently used in Node.js for creating immutable objects, such as in the 'immutable.js' library or for building configuration objects in webpack configs.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="builder">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('builder', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('builder', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+class House {
+  walls: number;
+  doors: number;
+  windows: number;
+  toString(): string {
+    return `House with ${this.walls} walls, ${this.doors} doors, ${this.windows} windows`;
+  }
+}
+
+class HouseBuilder {
+  private house: House;
+  constructor() { this.house = new House(); }
+  setWalls(walls: number): HouseBuilder { this.house.walls = walls; return this; }
+  setDoors(doors: number): HouseBuilder { this.house.doors = doors; return this; }
+  setWindows(windows: number): HouseBuilder { this.house.windows = windows; return this; }
+  build(): House { return this.house; }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+function HouseBuilder() {
+  this.house = { walls: 0, doors: 0, windows: 0 };
+  return {
+    setWalls: (walls) => { this.house.walls = walls; return this; },
+    setDoors: (doors) => { this.house.doors = doors; return this; },
+    setWindows: (windows) => { this.house.windows = windows; return this; },
+    build: () => this.house
+  };
+}
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('builder-output', runBuilder)">Run Code</button>
+        <div class="output" id="builder-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

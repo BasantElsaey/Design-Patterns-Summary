@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Proxy Pattern</h1>
+    <div class="section" id="proxy">
+      <h2 onclick="toggleContent(this)">Proxy</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Proxy pattern provides a surrogate or placeholder for another object to control access to it. It's used to add functionality like lazy loading, validation, or caching without changing the original object.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Adds functionality without modifying the original object (Open/Closed Principle).</li>
+          <li>Supports caching, access control, and lazy initialization.</li>
+          <li>Allows separation of additional logic from the core object.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Used for resource access control or caching in applications, such as proxying database queries to add logging or rate limiting.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>ES6 introduced the built-in Proxy object, making implementation easier. In Node.js, it's useful for virtualizing file systems or API calls.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Use the built-in Proxy for dynamic proxies in modern JS.</li>
+            <li>Ensure the proxy delegates all methods to the real object to avoid breaking functionality.</li>
+            <li>Combine with Reflect API for transparent proxying.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>The Proxy pattern is powerful for AOP (Aspect-Oriented Programming) in Node.js, often used in libraries like Express middleware proxies.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="proxy">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('proxy', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('proxy', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+interface Subject { request(): string; }
+
+class RealSubject implements Subject {
+  request(): string { return "RealSubject: Handling request"; }
+}
+
+class ProxySubject implements Subject {
+  private realSubject: RealSubject;
+  constructor() { this.realSubject = new RealSubject(); }
+  request(): string {
+    return `Proxy: Logging before request\n${this.realSubject.request()}`;
+  }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+class RealSubject {
+  request() { return "RealSubject: Handling request"; }
+}
+
+class ProxySubject {
+  constructor() { this.realSubject = new RealSubject(); }
+  request() {
+    return `Proxy: Logging before request\n${this.realSubject.request()}`;
+  }
+}
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('proxy-output', runProxy)">Run Code</button>
+        <div class="output" id="proxy-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

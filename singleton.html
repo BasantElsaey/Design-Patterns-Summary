@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singleton Pattern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+      <nav>
+      <ul>
+        <li><a href="factory.html">Factory</a></li>
+        <li><a href="builder.html">Builder</a></li>
+        <li><a href="revealing-constructor.html">Revealing Constructor</a></li>
+        <li><a href="singleton.html">Singleton</a></li>
+        <li><a href="dependency-injection.html">Dependency Injection</a></li>
+        <li><a href="proxy.html">Proxy</a></li>
+        <li><a href="decorator.html">Decorator</a></li>
+        <li><a href="adapter.html">Adapter</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="state.html">State</a></li>
+        <li><a href="template.html">Template</a></li>
+        <li><a href="iterator.html">Iterator</a></li>
+        <li><a href="middleware.html">Middleware</a></li>
+        <li><a href="command.html">Command</a></li>
+      </ul>
+    </nav>
+    
+    <h1>Singleton Pattern</h1>
+    <div class="section" id="singleton">
+      <h2 onclick="toggleContent(this)">Singleton</h2>
+      <div class="content">
+        <h3>Description</h3>
+        <p>The Singleton pattern ensures that a class has only one instance and provides a global point of access to it. It's useful for managing shared resources like configuration or database connections.</p>
+        <h3>Advantages</h3>
+        <ul>
+          <li>Reduces resource consumption by reusing a single instance.</li>
+          <li>Provides a unified access point for shared resources.</li>
+          <li>Ideal for managing global state or shared resources across the application.</li>
+        </ul>
+        <h3>Use in Node.js</h3>
+        <p>Common in managing database connections like MongoDB or global app configurations, ensuring only one connection pool is used.</p>
+        <h3>Notes</h3>
+        <div class="notes">
+          <p>In Node.js, Singletons are naturally supported due to the single-threaded nature, but be cautious in clustered environments where multiple processes may create multiple instances.</p>
+        </div>
+        <h3>Tips</h3>
+        <div class="tips">
+          <ul>
+            <li>Use lazy initialization to create the instance only when needed.</li>
+            <li>Consider dependency injection as an alternative to avoid global state issues.</li>
+            <li>Test by mocking the singleton instance for unit tests.</li>
+          </ul>
+        </div>
+        <h3>Additional Information</h3>
+        <p>Singletons can be controversial due to global state, but in Node.js, they're useful for logging services or cache managers like Redis clients.</p>
+        <h3>Code Example</h3>
+        <div class="code-toggle" data-section="singleton">
+          <button class="code-toggle-btn active" data-type="typescript" onclick="toggleCode('singleton', 'typescript')">TypeScript</button>
+          <button class="code-toggle-btn" data-type="javascript" onclick="toggleCode('singleton', 'javascript')">JavaScript</button>
+        </div>
+        <div class="code-block show" data-type="typescript">
+          <pre><code class="language-typescript">
+class Database {
+  private static instance: Database;
+  private constructor() { console.log("Database connection initialized"); }
+  public static getInstance(): Database {
+    if (!Database.instance) Database.instance = new Database();
+    return Database.instance;
+  }
+  query(sql: string): string { return `Executing query: ${sql}`; }
+}
+          </code></pre>
+        </div>
+        <div class="code-block" data-type="javascript">
+          <pre><code class="language-javascript js-code">
+const Database = (function() {
+  let instance;
+  function createInstance() {
+    const object = new Object("I am a singleton...");
+    return object;
+  }
+  return {
+    getInstance: function() {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
+    }
+  };
+})();
+          </code></pre>
+        </div>
+        <button class="run-button" onclick="runCode('singleton-output', runSingleton)">Run Code</button>
+        <div class="output" id="singleton-output"></div>
+      </div>
+    </div>
+    <footer>
+      Created by: Basant Elsaey | Last updated: September 18, 2025
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

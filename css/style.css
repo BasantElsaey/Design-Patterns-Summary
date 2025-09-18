@@ -225,17 +225,17 @@ footer {
   }
 
   nav ul {
-    display: none; /* إخفاء القائمة الأفقية افتراضيًا */
+    display: none; /* إخفاء القائمة في الشاشات الصغيرة */
     flex-direction: column;
-    width: 180px; /* عرض أصغر وأكثر تناسق */
+    width: 180px;
     position: absolute;
     top: 60px;
-    right: 20px; /* زيادة المسافة من الحافة */
+    right: 20px;
     background: #1e293b;
     padding: 10px 0;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    max-height: 70vh; /* ارتفاع أقل لتجنب الغرابة */
+    max-height: 70vh;
     overflow-y: auto;
   }
 
@@ -269,22 +269,18 @@ footer {
     z-index: 101;
   }
 
-  /* إخفاء الزر في الشاشات الكبيرة */
-  @media (min-width: 769px) {
-    .menu-toggle {
-      display: none;
-    }
-
-    nav ul {
-      display: flex !important;
-    }
-  }
-
   .container {
     padding: 10px;
   }
 
   .section {
     padding: 15px;
+  }
+}
+
+/* Media Query for Desktop (to hide toggle button) */
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none; /* إخفاء زر التبديل في الشاشات الكبيرة */
   }
 }
